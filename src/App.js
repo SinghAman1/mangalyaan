@@ -1,10 +1,13 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import Navbar from './navbar';
+import Visualizer from './visulaizer/visualizer';
 
 function App() {
   return (
-    <div className="App">
-      <h1> mangalyaan</h1>
+    <div className="App"> 
+    <Navbar/>
+      <Visualizer/>
     </div>
   );
 }
