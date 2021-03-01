@@ -54,11 +54,11 @@ export default class Visualizer extends Component {
     }  
     else if(endchange) 
     { 
-      const newGrid =changeStartPoint(this.state.grid, row, col, 0,0,1);
+      const newGrid =changeEndPoint(this.state.grid, row, col, 1);
       this.setState({grid: newGrid});
      FINISH_NODE_ROW = row;
       FINISH_NODE_COL = col;  
-      const newstGrid =changeStartPoint(this.state.grid, row, col, 0,0, 0, 1);
+      const newstGrid =changeEndPoint(this.state.grid, row, col,  0, 1);
       this.setState({grid: newstGrid});
       
     } 
@@ -156,13 +156,12 @@ const getNewGridWithWallToggled = (grid, row, col) => {
 }; 
 
 
-const changeStartPoint = (grid, row, col, ps=0, ns=0, pe=0,ne=0) => {
+const changeStartPoint = (grid, row, col, previousStart=0, newStart=0) => {
   const newGrid = grid.slice();  
   const startNode = newGrid[START_NODE_ROW][START_NODE_COL];  
-  const endNode = newGrid[FINISH_NODE_ROW][FINISH_NODE_COL];
    let newNode= {};
    let previousNode= {};
-  if(ps)  
+  if(previousStart)  
   {
     previousNode = {
       ...startNode,
@@ -170,15 +169,8 @@ const changeStartPoint = (grid, row, col, ps=0, ns=0, pe=0,ne=0) => {
     }; 
     newGrid[START_NODE_ROW][START_NODE_COL]=previousNode;
    }  
-   if(pe)  
-  {
-    previousNode = {
-      ...endNode,
-      isFinish: false
-    }; 
-    newGrid[FINISH_NODE_ROW][FINISH_NODE_COL]=previousNode;
-   } 
-   if(ns)  
+   
+   if(newStart)  
    {
      newNode = {
        ...startNode,
@@ -186,7 +178,27 @@ const changeStartPoint = (grid, row, col, ps=0, ns=0, pe=0,ne=0) => {
      }; 
      newGrid[START_NODE_ROW][START_NODE_COL]=newNode;
     }  
-    if(ne)  
+
+  return newGrid;
+}; 
+
+
+const changeEndPoint = (grid, row, col,  previousEnd=0,newEnd=0) => {
+  const newGrid = grid.slice();  
+  const endNode = newGrid[FINISH_NODE_ROW][FINISH_NODE_COL];
+   let newNode= {};
+   let previousNode= {};
+  
+   if(previousEnd)  
+  {
+    previousNode = {
+      ...endNode,
+      isFinish: false
+    }; 
+    newGrid[FINISH_NODE_ROW][FINISH_NODE_COL]=previousNode;
+   } 
+   
+    if(newEnd)  
   {
     newNode = {
       ...endNode,
@@ -194,7 +206,5 @@ const changeStartPoint = (grid, row, col, ps=0, ns=0, pe=0,ne=0) => {
     }; 
     newGrid[FINISH_NODE_ROW][FINISH_NODE_COL]=newNode;
    } 
-     
-  
   return newGrid;
 };
