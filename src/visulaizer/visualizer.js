@@ -3,7 +3,7 @@ import Node from '../node/node';
 import "./visualizer.css";
 export default class Visualizer extends Component {
     state = {  
-        grid: [],
+        grid: [2],
       mouseIsPressed: false,
      } 
 Node
