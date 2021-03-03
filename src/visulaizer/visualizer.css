@@ -4,3 +4,6 @@
 .gridRow {
   display: inline-block;
 }
+.node-shortest-path {
+  background-color: pink;
+}
