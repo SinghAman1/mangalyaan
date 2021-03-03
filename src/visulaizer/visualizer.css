@@ -1,9 +1,9 @@
 .grid {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 .gridRow {
   display: inline-block;
 }
 .node-shortest-path {
-  background-color: pink;
+  background-color: yellow;
 }
