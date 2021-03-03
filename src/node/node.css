@@ -24,7 +24,7 @@
 
 @keyframes visitedAnimation {
   0% {
-    transform: scale(0.3);
+    transform: scale(0.5);
     background-color: rgba(0, 0, 66, 0.75);
     border-radius: 100%;
   }
@@ -46,7 +46,7 @@
 
 .node-shortest-path {
   animation-name: shortestPath;
-  animation-duration: 1.5s;
+  animation-duration: 1.5 s;
   animation-timing-function: ease-out;
   animation-delay: 0;
   animation-direction: alternate;
