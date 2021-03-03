@@ -6,7 +6,7 @@
 }
 
 .node-wall {
-  background-color: rgb(12, 53, 71);
+  background-color: rgb(60, 193, 233);
 }
 .node-visited {
   animation-name: visitedAnimation;

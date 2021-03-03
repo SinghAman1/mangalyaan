@@ -127,23 +127,43 @@ export default class Visualizer extends Component {
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
 
-  resetGrid =()=> {
+  resetGrid =( )=> {
     //  const { grid} = this.state; 
      const grid = [];
      for (let row = 0; row < 20; row++) {
        const currentRow = [];
        for (let col = 0; col < 20; col++) {
-         currentRow.push(createNode(col, row)); 
-         document.getElementById(`node-${row}-${col}`).className =
+          currentRow.push(createNode(col, row)); 
+       document.getElementById(`node-${row}-${col}`).className =
         `node  ${ row===START_NODE_ROW && col===START_NODE_COL ?'node-start': 
          row===FINISH_NODE_ROW && col===FINISH_NODE_COL? 'node-finish':''}`;
-      
+       
        }
        grid.push(currentRow);
      }
        this.setState({ grid});
     // console.log(grid); 
-  }
+  } 
+
+   clearPath=()=> {
+     const { grid}= this.state;  
+     const gridNew = []; 
+     for (let row = 0; row < 20; row++) {
+      const currentRow = [];
+      for (let col = 0; col < 20; col++) {
+         currentRow.push(createNode(col, row,grid[row][col].isWall));  
+        if(grid[row][col].isWall) { 
+          document.getElementById(`node-${row}-${col}`).className='node node-wall'; }
+      else { document.getElementById(`node-${row}-${col}`).className =
+       `node  ${ row===START_NODE_ROW && col===START_NODE_COL ?'node-start': 
+        row===FINISH_NODE_ROW && col===FINISH_NODE_COL? 'node-finish':''}`; }
+      
+      }
+      gridNew.push(currentRow);
+    }
+      this.setState({ grid: gridNew});
+    //  console.log( grid);
+   }
 
 
     render() {   
@@ -155,6 +175,9 @@ export default class Visualizer extends Component {
           Visualize Dijkstra's Algorithm
         </button> <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}>
           Reset Grid
+        </button> 
+         <button className=" btn btn-info mt-3 mx-3" onClick={() => this.clearPath()}>
+         clear path
         </button>
             <div className="grid">
             {grid.map((row, rowIdx) => {
@@ -163,7 +186,7 @@ export default class Visualizer extends Component {
                 <div key={rowIdx} className="gridRow">
                   {row.map((node, nodeIdx) => {
                      const {row, col, isFinish, isStart, isWall} = node; 
-                    // console.log( node);
+                    // console.log( 'a');
                      return (
                        <Node
                        key={nodeIdx} 
@@ -204,7 +227,7 @@ const getInitialGrid = () => {
   }; 
 
   
-const createNode = (col, row) => {
+const createNode = (col, row,wall=false) => {
   return {
     col,
     row,
@@ -212,7 +235,7 @@ const createNode = (col, row) => {
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
     isVisited: false,
-    isWall: false,
+    isWall: wall,
     previousNode: null,
   };
 }; 
