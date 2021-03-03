@@ -5,18 +5,10 @@
   display: grid;
 }
 
-.node-finish {
-  background-color: red;
-}
-
-.node-start {
-  background-color: green;
-}
-
 .node-wall {
   background-color: rgb(12, 53, 71);
 }
-/* .node-visited {
+.node-visited {
   animation-name: visitedAnimation;
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
@@ -75,4 +67,12 @@
     transform: scale(1);
     background-color: rgb(255, 254, 106);
   }
-} */
+}
+
+.node-finish {
+  background-color: red;
+}
+
+.node-start {
+  background-color: green;
+}
