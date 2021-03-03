@@ -130,7 +130,7 @@ export default class Visualizer extends Component {
   resetGrid =()=> {
     //  const { grid} = this.state; 
      const grid = [];
-     for (let row = 0; row < 50; row++) {
+     for (let row = 0; row < 20; row++) {
        const currentRow = [];
        for (let col = 0; col < 20; col++) {
          currentRow.push(createNode(col, row)); 
