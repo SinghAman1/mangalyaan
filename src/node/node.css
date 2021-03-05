@@ -5,8 +5,11 @@
   display: grid;
 }
 
+.node-weighted {
+  background-color: pink;
+}
 .node-wall {
-  background-color: rgb(60, 193, 233);
+  background-color: rgb(30, 24, 39);
 }
 .node-visited {
   animation-name: visitedAnimation;

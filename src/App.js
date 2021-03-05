@@ -7,9 +7,9 @@ import Visualizer from './visulaizer/visualizer';
 function App() {
   return (
     <div className="App">  
-     <div id="stars" />
-      <div id="stars2" />
-      <div id="stars3" />
+     {/* <div id="stars" /> */}
+      {/* <div id="stars2" /> */}
+      {/* <div id="stars3" /> */}
     <Navbar/>
       <Visualizer/>
     </div>

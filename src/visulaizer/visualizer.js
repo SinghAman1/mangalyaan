@@ -10,13 +10,14 @@ let START_NODE_ROW = 5;
 let START_NODE_COL = 5;
 let FINISH_NODE_ROW = 15;
 let FINISH_NODE_COL = 15; 
-
+let  isWPressed = false;
 
 export default class Visualizer extends Component {
     state = {  
         grid: [], 
         startchange: false,
-        endchange: false, 
+        endchange: false,  
+       
       mouseIsPressed: false,
      }  
 
@@ -24,10 +25,33 @@ export default class Visualizer extends Component {
      componentDidMount() {
         const grid = getInitialGrid();
         this.setState({grid});
-      } 
+      }  
 
       
-  handleMouseDown=(row, col)=> { 
+      
+  handleMouseDown=(row, col)=> {  
+     const { grid} = this.state;
+     if( isWPressed) 
+     {    this.setState({mouseIsPressed: true});  
+     setTimeout(() => {
+      // console.log( document.getElementById(`node-${row}-${col}`)); 
+      const newGrid = grid.slice();  
+      const Node = newGrid[row][col];
+     let newNode= {};
+     newNode = {
+      ...Node,
+      isWeighted: true
+     }; 
+     newGrid[row][col]=newNode;
+     this.setState({ grid:newGrid}); 
+     console.log( grid[row][col] );
+      document.getElementById(`node-${row}-${col}`).className =`node  node-weighted`;
+    }, 10);
+    
+  }
+     
+    
+
     if( row === START_NODE_ROW && col === START_NODE_COL) 
      {    this.setState({startchange:true,mouseIsPressed: true});   
      return;  }
@@ -35,12 +59,32 @@ export default class Visualizer extends Component {
     {  
       this.setState({endchange:true,mouseIsPressed: true});   
      return;  }
-    const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
-    this.setState({grid: newGrid, mouseIsPressed: true});
+    if(!isWPressed) { const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
+    this.setState({grid: newGrid, mouseIsPressed: true}); }
   } 
 
-  handleMouseEnter=(row, col) =>{
+  handleMouseEnter=(row, col) =>{ 
+     
     if (!this.state.mouseIsPressed) return; 
+      const { grid} = this.state;
+    
+    if( isWPressed) 
+    {    this.setState({mouseIsPressed: true});  
+    setTimeout(() => {
+     // console.log( 'aaa'); 
+     const newGrid = grid.slice();  
+     const Node = newGrid[row][col];
+    let newNode= {};
+    newNode = {
+     ...Node,
+     isWeighted: true
+    }; 
+    newGrid[row][col]=newNode;
+    this.setState({ grid:newGrid}); 
+    console.log( grid[row][col] );
+     document.getElementById(`node-${row}-${col}`).className =`node  node-weighted`;
+   }, 10);
+  }
     const{ startchange, endchange}= this.state;  
     if(startchange) 
     { 
@@ -62,7 +106,7 @@ export default class Visualizer extends Component {
       this.setState({grid: newstGrid});
       
     } 
-   else { const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
+   else if( !isWPressed) { const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
     this.setState({grid: newGrid}); }
   }
 
@@ -72,8 +116,8 @@ export default class Visualizer extends Component {
   else  if( endchange) this.setState({endchange:false,mouseIsPressed: false}); 
     else  this.setState({mouseIsPressed: false}); 
   
-  }   
-
+  }    
+ 
   animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
@@ -167,7 +211,14 @@ export default class Visualizer extends Component {
 
 
     render() {   
-      
+      window.addEventListener("keydown", (e) => {
+        if( e.key ==="w")  isWPressed= true; 
+        
+      }); 
+      window.addEventListener("keyup", (e) => {
+        if( e.key ==="w")  isWPressed= false; 
+        
+      });
         const {grid,mouseIsPressed}= this.state;
         return (     
           <div>
@@ -185,7 +236,7 @@ export default class Visualizer extends Component {
 
                 <div key={rowIdx} className="gridRow">
                   {row.map((node, nodeIdx) => {
-                     const {row, col, isFinish, isStart, isWall} = node; 
+                     const {row, col, isFinish, isStart, isWall, isWeighted} = node; 
                     // console.log( 'a');
                      return (
                        <Node
@@ -194,12 +245,13 @@ export default class Visualizer extends Component {
                        col={col}
                        isFinish={isFinish}
                        isStart={isStart}
-                       isWall={isWall}
+                       isWall={isWall} 
+                       isWeighted= { isWeighted}
                        mouseIsPressed={mouseIsPressed}
                        onMouseDown={(row, col) => this.handleMouseDown(row, col)}
-                       onMouseEnter={(row, col) => 
-                        {return  this.handleMouseEnter(row, col)}}
+                       onMouseEnter={(row, col) => {return  this.handleMouseEnter(row, col)}}
                        onMouseUp={(row, col) => { return this.handleMouseUp(row,col)}}
+                      //  onKeyDown={ ()=> { return this.handleKeyPress } }
                        ></Node>
                     );
                   })}
@@ -235,7 +287,8 @@ const createNode = (col, row,wall=false) => {
     isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
     distance: Infinity,
     isVisited: false,
-    isWall: wall,
+    isWall: wall, 
+    isWeighted: false,
     previousNode: null,
   };
 }; 
