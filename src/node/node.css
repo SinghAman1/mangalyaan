@@ -11,6 +11,7 @@
 .node-wall {
   background-color: rgb(30, 24, 39);
 }
+
 .node-visited {
   animation-name: visitedAnimation;
   animation-duration: 1.5s;
