@@ -10,7 +10,7 @@ function App() {
      {/* <div id="stars" /> */}
       {/* <div id="stars2" /> */}
       {/* <div id="stars3" /> */}
-      < Navbar/>
+   
       <Visualizer/>
     </div>
   );

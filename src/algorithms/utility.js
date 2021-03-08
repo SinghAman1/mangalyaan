@@ -49,25 +49,29 @@ export class Queue {
         } // if d < 4, push elements else if d >= 4, check for diagonal walls
         else if (d < 4) {
           neighbours.push([rr, cc]);
-        } else if (
+        }  
+        else if (
           d === 4 &&
           grid[i][j + 1].isWall !== "true" &&
           grid[i + 1][j].isWall !== "true"
         ) {
           neighbours.push([rr, cc]);
-        } else if (
+        }  
+        else if (
           d === 5 &&
           grid[i][j - 1].isWall !== "true" &&
           grid[i + 1][j].isWall !== "true"
         ) {
           neighbours.push([rr, cc]);
-        } else if (
+        }
+         else if (
           d === 6 &&
           grid[i - 1][j].isWall !== "true" &&
           grid[i][j + 1].isWall !== "true"
         ) {
           neighbours.push([rr, cc])
-        } else if (
+        } 
+        else if (
           d === 7 &&
           grid[i - 1][j].isWall !== "true" &&
           grid[i][j - 1].isWall !== "true"

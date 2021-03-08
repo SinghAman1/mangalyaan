@@ -1,4 +1,5 @@
-const Navbar = () => {
+const Navbar = (props) => { 
+  // console.log( props);
   return (  
       <div>
       <nav className="navbar navbar-expand-lg navbar-light navColor">
@@ -9,7 +10,7 @@ const Navbar = () => {
   </button>
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-      <li className="nav-item dropdown">
+      <li className="nav-item dropdown ms-0">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Select Algorithms
         </a>
@@ -29,10 +30,10 @@ const Navbar = () => {
            </div>
       </li>  
       <li className="nav-item mx-2">
-      <button className="btn btn-outline-info rounded-pill py-0 mt-2" type="submit"> reset Grid</button>
+      <button className="btn btn-outline-info rounded-pill py-0 mt-2" onClick={ props.resetGrid}> reset Grid</button>
       </li> 
       <li className="nav-item mx-2">
-      <button className="btn btn-outline-info rounded-pill py-0 mt-2" type="submit"> Clear Path</button>
+      <button className="btn btn-outline-info rounded-pill py-0 mt-2" onClick={ props.clearPath}> Clear Path</button>
       </li> 
       
       

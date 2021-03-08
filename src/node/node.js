@@ -16,7 +16,7 @@ class Node extends Component {
             onMouseDown,
             onMouseEnter,
             onMouseUp, 
-            isweighted,
+            weight,
             row,
             parent,
           } = this.props;

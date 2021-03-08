@@ -1,10 +1,9 @@
-export function dijkstra(grid, startNode, finishNode) {
+import { getNeighbours } from "./utility";
+ export function dijkstra(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
-  const unvisitedNodes = getAllNodes(grid); 
-  console.log( grid);
-  console.log( unvisitedNodes);
-  while (!!unvisitedNodes.length) {
+  const unvisitedNodes = getAllNodes(grid);
+  while (unvisitedNodes.length) {
     sortNodesByDistance(unvisitedNodes);
     const closestNode = unvisitedNodes.shift();
     // If we encounter a wall, we skip it.
@@ -14,41 +13,71 @@ export function dijkstra(grid, startNode, finishNode) {
     if (closestNode.distance === Infinity) return visitedNodesInOrder;
     closestNode.isVisited = true;
     visitedNodesInOrder.push(closestNode);
-    for (  const node of visitedNodesInOrder )
-    console.log(node);
     if (closestNode === finishNode) return visitedNodesInOrder;
     updateUnvisitedNeighbors(closestNode, grid);
   }
 }
 
 function sortNodesByDistance(unvisitedNodes) {
-  unvisitedNodes.sort((nodeA, nodeB) =>  nodeA.distance - nodeB.distance)
-  
- 
+  unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
 }
 
 function updateUnvisitedNeighbors(node, grid) {
-  const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
-  for (const neighbor of unvisitedNeighbors) {
-    neighbor.distance = node.distance + 1;
-    neighbor.previousNode = node;
-  }
+  
+  let neighboursIndex = getNeighbours(node.row,node.col,grid);  
+  //  console.log( neighboursIndex);
+  let neighbours = [];
+  neighboursIndex.forEach((indices) => {
+    let m = indices[0];
+    let n = indices[1];
+    let neighbour =  grid[m][n];
+    neighbours.push(neighbour);
+  });
+  // for (const neighbor of neighbours) {
+  //   neighbor.distance = node.distance + 1;
+  //   neighbor.previousNode = node;
+  // } 
+  updateNeighbours(neighbours, node, "dijkstra");
 }
 
-function getUnvisitedNeighbors(node, grid) {
-  const neighbors = [];
-  const {col, row} = node;
-  if (row > 0) neighbors.push(grid[row - 1][col]);
-  if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
-  if (col > 0) neighbors.push(grid[row][col - 1]);
-  if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-  return neighbors.filter(neighbor => !neighbor.isVisited);
+
+function updateNeighbours(neighbours, currNode, algo) {
+  let row = currNode.row;
+  let col = currNode.col;
+  let DiagonalId = [
+    `${row - 1}-${col - 1}`,
+    `${row - 1}-${col + 1}`,
+    `${row + 1}-${col - 1}`,
+    `${row + 1}-${col + 1}`,
+  ];
+  if (algo === "dijkstra") {
+    neighbours.forEach((neighbour) => { 
+      //  if(!DiagonalId.includes( ))
+      // console.log('aaa');
+
+      if (!DiagonalId.includes(`${neighbour.row}-${neighbour.col}`)) {
+        if (1 + neighbour.weight + currNode.distance < neighbour.distance) {
+          neighbour.distance = 1 + neighbour.weight + currNode.distance;
+          neighbour.parent = currNode;
+          neighbour.previousNode = currNode;
+        }
+      } else {
+        if (1.4 + neighbour.weight + currNode.distance < neighbour.distance) {
+          neighbour.distance = 1.4 + neighbour.weight + currNode.distance; 
+          // console.log( neighbour.distance);
+          neighbour.parent = currNode;
+          neighbour.previousNode = currNode;
+        }
+      }
+    });
+  }
 }
 
 function getAllNodes(grid) {
   const nodes = [];
   for (const row of grid) {
-    for (const node of row) {
+    for (const node of row) { 
+      if(! node.isWall===true)
       nodes.push(node);
     }
   }
@@ -57,15 +86,12 @@ function getAllNodes(grid) {
 
 // Backtracks from the finishNode to find the shortest path.
 // Only works when called *after* the dijkstra method above.
-export function getNodesInShortestPathOrder(finishNode ) {
+export function getNodesInShortestPathOrder(finishNode) {
   const nodesInShortestPathOrder = [];
-  let currentNode = finishNode; let parentNode;
+  let currentNode = finishNode;
   while (currentNode !== null) {
     nodesInShortestPathOrder.unshift(currentNode);
-    parentNode= currentNode;
-    currentNode = currentNode.previousNode; 
+    currentNode = currentNode.parent;
   }
-  if( parentNode.isStart)
-  return nodesInShortestPathOrder; 
-  else return null;
+  return nodesInShortestPathOrder;
 }

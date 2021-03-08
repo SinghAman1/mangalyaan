@@ -1,6 +1,5 @@
 import { Queue, getNeighbours } from "./utility";
 import Node from "../node/node";
-let pathFound=false;
 
 
 
@@ -9,7 +8,6 @@ export function BFS(grid, startNode, finishNode) {
  // const nodesInShortestPathOrder=[];
   let myQueue = new Queue();
   
-  // Get start node and end node
   startNode.isVisited = true;
   myQueue.enqueue(startNode);
 
@@ -19,14 +17,14 @@ export function BFS(grid, startNode, finishNode) {
   // dequeue till queue becomes empty or finds end node
   while (!myQueue.empty()) { 
     currNode = myQueue.dequeue(); 
-    if (currNode.isWall) {console.log(currNode.row)};
+    // if (currNode.isWall) {console.log(currNode.row)};
    
-    if (currNode.isWall){ continue;console.log('aa');}
+    if (currNode.isWall){ continue;}
     var r = currNode.row;
     var c = currNode.col;
     visitedNodesInOrder.push(currNode);
     if (currNode === finishNode) {
-    pathFound = true;
+    // pathFound = true;
       break;
     }
     currNode.isVisited = true;
@@ -49,18 +47,6 @@ export function BFS(grid, startNode, finishNode) {
     return visitedNodesInOrder; 
   }
 
-  // backtrack if path found
-  // if (pathFound) {
-  //   nodesInShortestPathOrder.unshift(node);
-  //   let prevNode = new Node();
-  //   prevNode = finishNode.parent;
-  //   while (prevNode !== null) {
-  //     nodesInShortestPathOrder.unshift(prevNode);
-  //     prevNode = prevNode.parent;
-  //   }
-  // }
-
-  //return pathFound;
 
 export function getNodesInShortestPathOrder(finishNode) {
   
