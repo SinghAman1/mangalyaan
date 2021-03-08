@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
-
-import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
-import Navbar from '../navbar';
+//import '../utility.js';
+// import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
+import {BFS,getNodesInShortestPathOrder} from '../algorithms/bfs';
 import Node from '../node/node'; 
 
 import "./visualizer.css";
@@ -126,16 +126,17 @@ export default class Visualizer extends Component {
         return;
       }
       setTimeout(() => {
-        const node = visitedNodesInOrder[i];
+        const node = visitedNodesInOrder[i]; 
+        if(!node.isWall)
         document.getElementById(`node-${node.row}-${node.col}`).className =
-          // 'node node-visited'; 
           `node  ${ node.row===START_NODE_ROW && node.col===START_NODE_COL ?'node-start': 
-          node.row===FINISH_NODE_ROW && node.col===FINISH_NODE_COL? 'node-finish':'node-visited'}`;
+          node.row===FINISH_NODE_ROW && node.col===FINISH_NODE_COL? 'node-finish':node.iswall?'node-wall':'node-visited'}`;
       }, 10 * i);
     }
   }
 
   animateShortestPath(nodesInShortestPathOrder) {
+    console.log(this.state.grid);
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
@@ -145,24 +146,40 @@ export default class Visualizer extends Component {
       }, 50 * i);
     }
   }
+  // animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  //   for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+  //     if (i === visitedNodesInOrder.length) {
+  //       setTimeout(() => {
+  //         this.animateShortestPath(nodesInShortestPathOrder);
+  //       }, 10 * i);
+  //       return;
+  //     }
+  //     setTimeout(() => {
+  //       const node = visitedNodesInOrder[i];
+  //       document.getElementById(`node-${node.row}-${node.col}`).className =
+  //         'node node-visited';
+  //     }, 10 * i);
+  //   }
+  // }
 
-
-  visualizeDijkstra() {
+  // visualizeDijkstra() {
+  //   const {grid} = this.state;
+  //   const startNode = grid[START_NODE_ROW][START_NODE_COL];
+  //   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+  //   const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+  //   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+  //   this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+  // } 
+  visualizeBfs() {
     const {grid} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode); 
-    // console.log( nodesInShortestPathOrder); 
-    if(nodesInShortestPathOrder)
-    {  
-        console.log(nodesInShortestPathOrder.length);  
-         this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder); 
-       } 
-
-       else  console.log( 'path not found');
+    const visitedNodesInOrder = BFS(grid, startNode, finishNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
-
+  
+  
   resetGrid =( )=> {
     //  const { grid} = this.state; 
      const grid = [];
@@ -214,10 +231,9 @@ export default class Visualizer extends Component {
       });
         const {grid,mouseIsPressed}= this.state;
         return (     
-          <div> 
-            <Navbar clearPath={this.clearPath}/>
-          <button className=" btn btn-primary mt-3" onClick={() => this.visualizeDijkstra()}>
-          Visualize Dijkstra's Algorithm
+          <div>
+          <button className=" btn btn-primary mt-3" onClick={() => this.visualizeBfs()}>
+          Visualize bfs Algorithm
         </button> <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}>
           Reset Grid
         </button> 
@@ -230,7 +246,7 @@ export default class Visualizer extends Component {
 
                 <div key={rowIdx} className="gridRow">
                   {row.map((node, nodeIdx) => {
-                     const {row, col, isFinish, isStart, isWall, isWeighted} = node; 
+                     const {row, col, isFinish, isStart, isWall, isVisited,parent,isWeighted} = node; 
                     // console.log( 'a');
                      return (
                        <Node
@@ -240,7 +256,9 @@ export default class Visualizer extends Component {
                        isFinish={isFinish}
                        isStart={isStart}
                        isWall={isWall} 
+                       isVisited={isVisited}
                        isWeighted= { isWeighted}
+                       parent={parent}
                        mouseIsPressed={mouseIsPressed}
                        onMouseDown={(row, col) => this.handleMouseDown(row, col)}
                        onMouseEnter={(row, col) => {return  this.handleMouseEnter(row, col)}}
@@ -283,6 +301,7 @@ const createNode = (col, row,wall=false) => {
     isVisited: false,
     isWall: wall, 
     isWeighted: false,
+    parent :null,
     previousNode: null,
   };
 }; 

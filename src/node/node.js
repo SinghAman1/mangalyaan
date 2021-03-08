@@ -12,11 +12,13 @@ class Node extends Component {
             isFinish,
             isStart,
             isWall,
+            isvisited,
             onMouseDown,
             onMouseEnter,
             onMouseUp, 
             isweighted,
             row,
+            parent,
           } = this.props;
           const extraClassName = isFinish ? 'node-finish' : 
            isStart ? 'node-start' : 

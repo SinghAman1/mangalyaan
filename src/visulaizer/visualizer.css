@@ -1,9 +1,6 @@
 .grid {
-  margin-top: 50px;
+  margin-top: 10px;
 }
 .gridRow {
   display: inline-block;
-}
-.node-shortest-path {
-  background-color: yellow;
 }
