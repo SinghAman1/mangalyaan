@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; 
 
 import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
+import Navbar from '../navbar';
 import Node from '../node/node'; 
 
 import "./visualizer.css";
@@ -9,7 +10,7 @@ import "./visualizer.css";
 let START_NODE_ROW = 5;
 let START_NODE_COL = 5;
 let FINISH_NODE_ROW = 15;
-let FINISH_NODE_COL = 15; 
+let FINISH_NODE_COL = 5; 
 let  isWPressed = false;
 
 export default class Visualizer extends Component {
@@ -44,13 +45,11 @@ export default class Visualizer extends Component {
      }; 
      newGrid[row][col]=newNode;
      this.setState({ grid:newGrid}); 
-     console.log( grid[row][col] );
+  
       document.getElementById(`node-${row}-${col}`).className =`node  node-weighted`;
     }, 10);
-    
-  }
+    }
      
-    
 
     if( row === START_NODE_ROW && col === START_NODE_COL) 
      {    this.setState({startchange:true,mouseIsPressed: true});   
@@ -63,11 +62,11 @@ export default class Visualizer extends Component {
     this.setState({grid: newGrid, mouseIsPressed: true}); }
   } 
 
+
   handleMouseEnter=(row, col) =>{ 
-     
     if (!this.state.mouseIsPressed) return; 
+
       const { grid} = this.state;
-    
     if( isWPressed) 
     {    this.setState({mouseIsPressed: true});  
     setTimeout(() => {
@@ -146,29 +145,22 @@ export default class Visualizer extends Component {
       }, 50 * i);
     }
   }
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
-    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length) {
-        setTimeout(() => {
-          this.animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
-        return;
-      }
-      setTimeout(() => {
-        const node = visitedNodesInOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          'node node-visited';
-      }, 10 * i);
-    }
-  }
+
 
   visualizeDijkstra() {
     const {grid} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
     const visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode); 
+    // console.log( nodesInShortestPathOrder); 
+    if(nodesInShortestPathOrder)
+    {  
+        console.log(nodesInShortestPathOrder.length);  
+         this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder); 
+       } 
+
+       else  console.log( 'path not found');
   } 
 
   resetGrid =( )=> {
@@ -210,7 +202,8 @@ export default class Visualizer extends Component {
    }
 
 
-    render() {   
+    render() {    
+
       window.addEventListener("keydown", (e) => {
         if( e.key ==="w")  isWPressed= true; 
         
@@ -221,7 +214,8 @@ export default class Visualizer extends Component {
       });
         const {grid,mouseIsPressed}= this.state;
         return (     
-          <div>
+          <div> 
+            <Navbar clearPath={this.clearPath}/>
           <button className=" btn btn-primary mt-3" onClick={() => this.visualizeDijkstra()}>
           Visualize Dijkstra's Algorithm
         </button> <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}>

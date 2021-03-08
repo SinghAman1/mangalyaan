@@ -1,5 +1,6 @@
 // import React, { Component } from 'react';
-const Navbar = () => {
+const Navbar = (props) => { 
+  //  console.log( props);
     return (  
         <div>
         <nav className="navbar navbar-expand-lg navbar-light navColor">
@@ -17,31 +18,27 @@ const Navbar = () => {
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a className="dropdown-item" href="#">dijectra</a></li>
             <li><a className="dropdown-item" href="#">bfs</a></li>
-            {/* <li><hr className="dropdown-divider"/></li> */}
-            {/* <li><a className="dropdown-item" href="#">Something else here</a></li> */}
+            <li><a className="dropdown-item" href="#">A*</a></li>
+            <li><a className="dropdown-item" href="#">greedy bfs</a></li>
           </ul>
         </li>
+ 
+ 
         <li className="nav-item">
-          <a className="nav-link" href="#"> allow diagonal</a>
+        <button className="btn btn-outline-info  my-auto" onClick={props.clearPath} >clearPath</button>
+        </li> 
+
+        <li className="nav-item mx-2"> 
+        <div className="form-check form-switch mt-1 py-2">
+         <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault"/>
+         <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Allow Diagonal</label>
+        </div>
         </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            addmethod
-          </a>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a className="dropdown-item" href="#">huristic</a></li>
-            <li><a className="dropdown-item" href="#">euclidian</a></li>
-            {/* <li><hr className="dropdown-divider"/></li> */}
-            {/* <li><a className="dropdown-item" href="#">Something else here</a></li> */}
-          </ul>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link " href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
+      </ul> 
+
       <form className="d-flex">
         {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/> */}
-        <button className="btn btn-outline-success" type="submit">apply Algorithm</button>
+        <button className="btn btn-outline-success" >apply Algorithm</button>
       </form>
     </div>
   </div>
