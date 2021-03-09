@@ -1,4 +1,4 @@
-import '../navbar';
+import '../visulaizer/navbar';
 //import {Visualizer} from'../visulaizer/visualizer'
 
 export class Queue {

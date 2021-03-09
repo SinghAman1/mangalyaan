@@ -21,7 +21,7 @@ export function BFS(grid, startNode, finishNode) {
     currNode = myQueue.dequeue(); 
     if (currNode.isWall) {console.log(currNode.row)};
    
-    if (currNode.isWall){ continue;console.log('aa');}
+    if (currNode.isWall){ continue;}
     var r = currNode.row;
     var c = currNode.col;
     visitedNodesInOrder.push(currNode);

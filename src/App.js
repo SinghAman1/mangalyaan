@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css'; 
 import './background.css';
-import Navbar from './navbar';
+import Navbar from './visulaizer/navbar';
 import Visualizer from './visulaizer/visualizer';
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
     <div className="App">  
      {/* <div id="stars" /> */}
       {/* <div id="stars2" /> */}
-      {/* <div id="stars3" /> */}
-      < Navbar/>
+      {/* <div id="stars3" /> */} 
+      {/* < Navbar/> */}
       <Visualizer/>
     </div>
   );

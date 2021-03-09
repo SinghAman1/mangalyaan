@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
 import {BFS,getNodesInShortestPathOrder} from '../algorithms/bfs';
 import Node from '../node/node'; 
+import Navbar from'./navbar';
 
 import "./visualizer.css";
 
@@ -117,7 +118,7 @@ export default class Visualizer extends Component {
   
   }    
  
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -170,13 +171,17 @@ export default class Visualizer extends Component {
   //   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
   //   this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   // } 
-  visualizeBfs() {
+  visualize() {
     const {grid} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = BFS(grid, startNode, finishNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+
+    const visitedNodesInOrder
+     = BFS(grid, startNode, finishNode);
+    const nodesInShortestPathOrder
+     = getNodesInShortestPathOrder(finishNode);
+    if(algoId=="bfs") console.log("aditi");
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
   
   
@@ -187,7 +192,8 @@ export default class Visualizer extends Component {
        const currentRow = [];
        for (let col = 0; col < 20; col++) {
           currentRow.push(createNode(col, row)); 
-       document.getElementById(`node-${row}-${col}`).className =
+          //`node-${row}-${col}`
+      document.getElementById(`node-${row}-${col}`).className =
         `node  ${ row===START_NODE_ROW && col===START_NODE_COL ?'node-start': 
          row===FINISH_NODE_ROW && col===FINISH_NODE_COL? 'node-finish':''}`;
        
@@ -218,9 +224,12 @@ export default class Visualizer extends Component {
     //  console.log( grid);
    }
 
+   
+
+   
 
     render() {    
-
+     
       window.addEventListener("keydown", (e) => {
         if( e.key ==="w")  isWPressed= true; 
         
@@ -232,14 +241,18 @@ export default class Visualizer extends Component {
         const {grid,mouseIsPressed}= this.state;
         return (     
           <div>
-          <button className=" btn btn-primary mt-3" onClick={() => this.visualizeBfs()}>
-          Visualize bfs Algorithm
-        </button> <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}>
+     < Navbar resetGrid={this.resetGrid} clearPath={this.clearPath} />
+    
+    
+          <button className=" btn btn-primary mt-3" onClick={() => this.visualize()}>
+          Visualize Algorithm
+         </button>
+         {/* <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}>
           Reset Grid
         </button> 
          <button className=" btn btn-info mt-3 mx-3" onClick={() => this.clearPath()}>
          clear path
-        </button>
+        </button> */}
             <div className="grid">
             {grid.map((row, rowIdx) => {
               return ( 
@@ -263,6 +276,7 @@ export default class Visualizer extends Component {
                        onMouseDown={(row, col) => this.handleMouseDown(row, col)}
                        onMouseEnter={(row, col) => {return  this.handleMouseEnter(row, col)}}
                        onMouseUp={(row, col) => { return this.handleMouseUp(row,col)}}
+
                       //  onKeyDown={ ()=> { return this.handleKeyPress } }
                        ></Node>
                     );
