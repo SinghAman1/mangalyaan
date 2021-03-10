@@ -9,8 +9,8 @@ function App() {
     <div className="App">  
      {/* <div id="stars" /> */}
       {/* <div id="stars2" /> */}
-      {/* <div id="stars3" /> */} 
-      {/* < Navbar/> */}
+      {/* <div id="stars3" /> */}
+   
       <Visualizer/>
     </div>
   );

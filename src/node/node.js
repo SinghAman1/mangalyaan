@@ -16,9 +16,9 @@ class Node extends Component {
             onMouseDown,
             onMouseEnter,
             onMouseUp, 
-            isweighted,
+            weight,
             row,
-            parent,
+            parent,f,g,h
           } = this.props;
           const extraClassName = isFinish ? 'node-finish' : 
            isStart ? 'node-start' : 
