@@ -121,7 +121,7 @@ export default class Visualizer extends Component {
   
   }    
  
-  animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
         setTimeout(() => {
@@ -183,7 +183,7 @@ export default class Visualizer extends Component {
      else
     document.getElementById('input-message').innerHTML= `Path Found , Shortest Path length - ${nodesInShortestPathOrder.length-1 }`;
       
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
   
   
