@@ -10,7 +10,8 @@
      selectAlgorithm= ( name )=>{ 
        this.setState({ message : 'Apply'+ ' ' +name });  
        this.setState({  currentAlgorithm :name });   
-        // console.log( this.props); 
+        // console.log( this.props); v 
+        document.getElementById('input-message').innerHTML= ` Apply ${ name} Algorithm`;
       
        
      }
@@ -26,7 +27,7 @@
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+    <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
       <li className="nav-item dropdown ms-0">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Select Algorithms
@@ -35,10 +36,10 @@
           <li><a className="dropdown-item" id='startButtonDijkstra'   onClick={() =>this.selectAlgorithm( 'dijkstra')} href="#">Dijkstra</a></li>
           <li><a className="dropdown-item" id='startButtonBFS'  onClick={() =>this.selectAlgorithm( 'BFS')} href="#">Bfs</a></li>
           <li><a className="dropdown-item" id='startButtonAStar'  onClick={() =>this.selectAlgorithm( 'A*')} href="#">A*</a></li>
-          <li><a className="dropdown-item" id='startButtonGreedy'  onClick={() =>this.selectAlgorithm( 'Greedy best first')}  href="#">Greedy Best First Search</a></li>
+          <li><a className="dropdown-item" id='startButtonGreedy'  onClick={() =>this.selectAlgorithm( 'Greedy-best-first')}  href="#">Greedy Best First Search</a></li>
         </ul>
       </li>
-      <li className="nav-item mx-2">
+      <li className="nav-item mx-3">
          <div className="form-check form-switch mt-2">
            <input className="form-check-input" type="checkbox" value="" id="diagonal-flag"></input>
             <label className="form-check-label" htmlFor="flexCheckDefault">
@@ -46,11 +47,11 @@
             </label>
            </div>
       </li>  
-      <li className="nav-item mx-2">
-      <button className="btn btn-outline-info rounded-pill py-0 mt-2" onClick={ this.props.resetGrid}> reset Grid</button>
+      <li className="nav-item mx-3">
+      <button className="btn btn-outline-info rounded-pill py-1 px-4 mt-1" onClick={ this.props.resetGrid}> Reset Grid</button>
       </li> 
-      <li className="nav-item mx-2">
-      <button className="btn btn-outline-info rounded-pill py-0 mt-2" onClick={ this.props.clearPath}> Clear Path</button>
+      <li className="nav-item mx-3">
+      <button className="btn btn-outline-info rounded-pill  py-1 px-4 mt-1" onClick={ this.props.clearPath}> Clear Path and Weights</button>
       </li> 
       
       
@@ -59,7 +60,7 @@
     
     {/* <form className="d-flex"> */}
       {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/> */}
-      <button className="btn btn-outline-success rounded-pill"  id="actualStartButton" onClick={ ()=> this.props.visualizeAlgorithm(this.state.currentAlgorithm)}>{ this.state.message}</button>
+      <button className="btn btn-outline-success rounded-pill px-5"  id="actualStartButton" onClick={ ()=> this.props.visualizeAlgorithm(this.state.currentAlgorithm)}>{ this.state.message}</button>
   
   </div>
 </div>

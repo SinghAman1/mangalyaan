@@ -92,6 +92,7 @@ export function getNodesInShortestPathOrderOfDijkstra(finishNode) {
   while (currentNode !== null) {
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.parent;
-  }
+  } 
+//  console.log(currentNode.parent ); 
   return nodesInShortestPathOrder;
 }
