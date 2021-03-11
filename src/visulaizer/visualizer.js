@@ -1,7 +1,10 @@
 import React, { Component } from 'react'; 
 import { dijkstra, getNodesInShortestPathOrderOfDijkstra } from '../algorithms/dijkstra';
-import Navbar from '../navbar';
 import {BFS,getNodesInShortestPathOrderOfBFS} from '../algorithms/bfs';
+import {AStar,getNodesInShortestPathOrderOfAStar} from '../algorithms/Astar'; 
+import {Greedy_BFS,getNodesInShortestPathOrderOfGreedyBfs} from '../algorithms/greedy_bfs'; 
+
+import Navbar from '../navbar';
 import Node from '../node/node'; 
 
 import "./visualizer.css";
@@ -156,15 +159,30 @@ export default class Visualizer extends Component {
     // console.log( name);
     if( name ==='dijkstra'){
      visitedNodesInOrder = dijkstra(grid, startNode, finishNode); 
-     nodesInShortestPathOrder = getNodesInShortestPathOrderOfDijkstra(finishNode); 
+     nodesInShortestPathOrder = getNodesInShortestPathOrderOfDijkstra( finishNode); 
     }  
     else if( name ==='BFS') 
     {
       visitedNodesInOrder = BFS(grid, startNode, finishNode);  
-      
       nodesInShortestPathOrder = getNodesInShortestPathOrderOfBFS(finishNode);  
-     
-    }
+    } 
+    else if( name ==='A*') 
+    {
+      visitedNodesInOrder = AStar(grid, startNode, finishNode);  
+      nodesInShortestPathOrder = getNodesInShortestPathOrderOfAStar(finishNode);  
+    }  
+    else if( name ==='Greedy-best-first') 
+    {
+      visitedNodesInOrder = Greedy_BFS(grid, startNode, finishNode);  
+      nodesInShortestPathOrder = getNodesInShortestPathOrderOfGreedyBfs(finishNode);  
+    } 
+    // console.log( nodesInShortestPathOrder);   
+    // console.log( visitedNodesInOrder);   
+     if( nodesInShortestPathOrder.length==1)  
+     document.getElementById('input-message').innerHTML= `Path not  Found `;
+     else
+    document.getElementById('input-message').innerHTML= `Path Found , Shortest Path length - ${nodesInShortestPathOrder.length-1 }`;
+      
     this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
   
@@ -183,7 +201,9 @@ export default class Visualizer extends Component {
        
        }
        grid.push(currentRow);
-     }
+     } 
+     document.getElementById('input-message').innerHTML= `successfully Grid cleared`;
+      
        this.setState({ grid});
     // console.log(grid); 
   } 
@@ -203,7 +223,8 @@ export default class Visualizer extends Component {
       
       }
       gridNew.push(currentRow);
-    }
+    } 
+    document.getElementById('input-message').innerHTML= `successfully path cleared`;
       this.setState({ grid: gridNew});
     //  console.log( grid);
    }
@@ -227,7 +248,9 @@ export default class Visualizer extends Component {
               resetGrid = { this.resetGrid} 
               visualizeAlgorithm = { this.visualizeAlgorithm}
                />
-          
+            < div className = 'message-show my-3' id='input-message'> 
+              Please First Select Algorithm
+            </div>
           
             <div className="grid">
             {grid.map((row, rowIdx) => {
@@ -289,7 +312,10 @@ const createNode = ( col,row,wall=false) => {
     distance: Infinity,
     isVisited: false,
     isWall: wall, 
-    weight:1.0,
+    weight:1.0, 
+    f: Infinity,
+    g: Infinity,
+    h: Infinity,
     parent :null,
     previousNode: null,
   };
