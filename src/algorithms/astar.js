@@ -37,40 +37,25 @@ function getDistance(nodeA, nodeB) {
     return 1.4 * dx + 1 * (dy - dx);
   }
 }
-export function getNodesInShortestPathOrder(finishNode) {
-  const nodesInShortestPathOrder=[];
-  nodesInShortestPathOrder.push(finishNode);
+export function getNodesInShortestPathOrderOfaStar(finishNode) {
+  const nodesInShortestPathOrderofaStar=[];
+  nodesInShortestPathOrderofaStar.push(finishNode);
   let currNode = new Node();
   currNode = finishNode.parent;
-  console.log(currNode);
+  //console.log(currNode);
   while (currNode !== null) {
-    nodesInShortestPathOrder.push(currNode);
+    nodesInShortestPathOrderofaStar.push(currNode);
     currNode = currNode.parent;
 
     // console.log(currNode.f);
     // console.log(currNode.g);
     // console.log(currNode.h);
   }
-  return nodesInShortestPathOrder;
+  return nodesInShortestPathOrderofaStar;
 }
 
-// export function getNodesInShortestPathOrder(finishNode) {
-  
-//   const nodesInShortestPathOrder = [];
-//   let currentNode =new Node();
-//   currentNode= finishNode;
-//   console.log(currentNode);
-//   while (currentNode !== null) {
-    
-//     nodesInShortestPathOrder.push(currentNode);
-//     currentNode = currentNode.parent;
-//     console.log(currentNode);
 
-  
-// }
-//   return nodesInShortestPathOrder;
-// }
- export function astar(grid, startNode, finishNode) {
+ export function aStar(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   //const nodesInShortestPathOrder=[];
   let openList = new minHeap();
@@ -78,7 +63,8 @@ export function getNodesInShortestPathOrder(finishNode) {
   startNode.h = getDistance(startNode, finishNode);
   startNode.f = startNode.g + startNode.h;
 
-  openList.push([startNode.f, startNode]);
+  openList.push( [startNode.f,startNode]);
+  console.log(openList);
 
   while (!openList.isEmpty()) {
     var currNode = new Node();

@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import './App.css'; 
 import './background.css';
-import Navbar from './visulaizer/navbar';
+//import Navbar from './visulaizer/navbar';
 import Visualizer from './visulaizer/visualizer';
 
 function App() {

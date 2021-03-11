@@ -1,9 +1,9 @@
 import React, { Component } from 'react'; 
-//import { dijkstra, getNodesInShortestPathOrder } from '../algorithms/dijkstra';
+import { dijkstra, getNodesInShortestPathOrderOfDijkstra } from '../algorithms/dijkstra';
 import Navbar from './navbar';
-//import {BFS,getNodesInShortestPathOrder} from '../algorithms/bfs';
+import {BFS,getNodesInShortestPathOrderOfBFS} from '../algorithms/bfs';
 import Node from '../node/node'; 
-import {aStar,getNodesInShortestPathOrder} from '../algorithms/aStar1'
+import {aStar,getNodesInShortestPathOrderOfaStar} from '../algorithms/astar'
 
 import "./visualizer.css";
 
@@ -19,8 +19,8 @@ export default class Visualizer extends Component {
     state = {  
         grid: [], 
         startchange: false,
-        endchange: false,  
-       
+        endchange: false,   
+        currentAlgorithm: null,
       mouseIsPressed: false,
      }  
 
@@ -150,33 +150,42 @@ export default class Visualizer extends Component {
     }
   }
  
-  // visualizeDijkstra() {
-  //   const {grid} = this.state;
-  //   const startNode = grid[START_NODE_ROW][START_NODE_COL];
-  //   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-  //   const visitedNodesInOrder = dijkstra(grid, startNode, finishNode); 
-  //   // console.log( grid);
-  //   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-  //   this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-  // } 
-  // visualizeBfs() {
-  //   const {grid} = this.state;
-  //   const startNode = grid[START_NODE_ROW][START_NODE_COL];
-  //   const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-  //   const visitedNodesInOrder = BFS(grid, startNode, finishNode);
-  //   const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-  //   this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
-  // } 
-  
-  visualizeastar() {
+  visualizeAlgorithm =( name)=> {
     const {grid} = this.state;
     const startNode = grid[START_NODE_ROW][START_NODE_COL];
-    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-    const visitedNodesInOrder = aStar(grid, startNode, finishNode); 
-    console.log( grid);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
+    const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];  
+    let visitedNodesInOrder; let nodesInShortestPathOrder;
+    // console.log( name);
+    if( name ==='dijkstra'){
+     visitedNodesInOrder = dijkstra(grid, startNode, finishNode); 
+     nodesInShortestPathOrder = getNodesInShortestPathOrderOfDijkstra(finishNode); 
+    }  
+    else if( name ==='BFS') 
+    {
+      visitedNodesInOrder = BFS(grid, startNode, finishNode);  
+      
+      nodesInShortestPathOrder = getNodesInShortestPathOrderOfBFS(finishNode);  
+     
+    }
+    else if( name ==='A*') 
+    {
+      visitedNodesInOrder = aStar(grid, startNode, finishNode);  
+      
+      nodesInShortestPathOrder = getNodesInShortestPathOrderOfaStar(finishNode);  
+     
+    }
+    else if( name ==='Greedy best first') 
+    {
+      visitedNodesInOrder = greedyBFS(grid, startNode, finishNode);  
+      
+      nodesInShortestPathOrder = getNodesInShortestPathOrderOfgreedybfs(finishNode);  
+     
+    }
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
+  
+  
+  
   
   resetGrid =( )=> {
     //  const { grid} = this.state; 
@@ -238,18 +247,10 @@ export default class Visualizer extends Component {
              < Navbar 
               clearPath= {this.clearPath} 
               resetGrid = { this.resetGrid} 
-              algoId={this.algoId}
-
+              visualizeAlgorithm = { this.visualizeAlgorithm}
                />
-          <button className=" btn btn-primary mt-3" onClick={() => this.visualizeastar()}>
-          Visualize dijkstra Algorithm
-         </button> 
-         {/* <button className=" btn btn-info mt-3 mx-3" onClick={() => this.resetGrid()}> */}
-          {/* Reset Grid
-        </button> 
-         <button className=" btn btn-info mt-3 mx-3" onClick={() => this.clearPath()}>
-         clear path
-        </button>  */}
+          
+          
             <div className="grid">
             {grid.map((row, rowIdx) => {
               return ( 
