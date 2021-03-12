@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
- class instructions  extends Component {
+import './visualizer.css'
+ class Instructions  extends Component {
     state = {  }
     render() { 
         return (  <div
-            class="info-bar"
+            class="info-bar "
             id="info-bar"
           >
-            <div class="card">
+            <div class="card draggable-element">
               <div class="card-header">
                 <a
                   id="info-header"
@@ -29,7 +30,7 @@ import React, { Component } from 'react';
                 class="collapse show"
                 data-parent="#info-bar"
               >
-                <div class="card-body">
+                <div class="card-body draggable-element">
                   <div
                     id="info-description"
                     class="info-description"
@@ -59,4 +60,4 @@ import React, { Component } from 'react';
     }
 }
  
-export default instructions ;
+export default Instructions ;

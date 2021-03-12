@@ -6,7 +6,7 @@ import {Greedy_BFS,getNodesInShortestPathOrderOfGreedyBfs} from '../algorithms/g
 
 import Navbar from './navbar';
 import Node from '../node/node'; 
-import instructions from './instructions';
+import Instructions from './instructions';
 //import {aStar,getNodesInShortestPathOrderOfaStar} from '../algorithms/astar'
 
 import "./visualizer.css";
@@ -261,7 +261,7 @@ export default class Visualizer extends Component {
               resetGrid = { this.resetGrid} 
               visualizeAlgorithm = { this.visualizeAlgorithm}
                />
-               <instructions/>  
+               <Instructions/>  
             < div className = 'message-show my-3' id='input-message'> 
               Please First Select Algorithm
             </div>

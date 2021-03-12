@@ -6,7 +6,7 @@
 }
 
 .node-weighted {
-  background-color: grey;
+  background-color: rgb(94, 91, 91);
 }
 .node-wall {
   background-color: rgb(247, 127, 147);
@@ -31,7 +31,7 @@
   }
 
   50% {
-    background-color: rgba(17, 104, 217, 0.75);
+    background-color: rgba(17, 170, 217, 0.5);
   }
 
   75% {

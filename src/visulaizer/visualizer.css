@@ -10,3 +10,64 @@
   font-size: 20px;
   font-weight: 700;
 }
+
+.card {
+  background: whitesmoke;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transition: ease-in-out;
+  background: white;
+  opacity: 0.95;
+}
+
+.card-header.title {
+  font-size: 28px;
+  color: #007bff;
+}
+
+.card-header a {
+  font-weight: bold;
+}
+
+.btn {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.btn-space {
+  margin-right: 5px;
+}
+
+.info-bar {
+  position: absolute;
+  z-index: 100;
+  width: 30%;
+  background: transparent;
+  left: 2%;
+  top: 10%;
+  border-radius: 5px;
+  max-width: 300px;
+}
+
+.info-bar .card .card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rotate {
+  -moz-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.rotate.down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
