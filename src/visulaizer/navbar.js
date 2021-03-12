@@ -29,7 +29,7 @@
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
       <li className="nav-item dropdown ms-0">
-        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Select Algorithms
         </a>
         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,6 +38,7 @@
           <li><a className="dropdown-item" id='startButtonAStar'  onClick={() =>this.selectAlgorithm( 'A*')} href="#">A*</a></li>
           <li><a className="dropdown-item" id='startButtonGreedy'  onClick={() =>this.selectAlgorithm( 'Greedy-best-first')}  href="#">Greedy Best First Search</a></li>
         </ul>
+      
       </li>
       <li className="nav-item mx-3">
          <div className="form-check form-switch mt-2">
@@ -60,7 +61,7 @@
     
     {/* <form className="d-flex"> */}
       {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/> */}
-      <button className="btn btn-outline-success rounded-pill px-5"  id="actualStartButton" onClick={ ()=> this.props.visualizeAlgorithm(this.state.currentAlgorithm)}>{ this.state.message}</button>
+      <button className="btn btn-outline-success rounded-pill px-5 "  id="actualStartButton" onClick={ ()=> this.props.visualizeAlgorithm(this.state.currentAlgorithm)}>{ this.state.message}</button>
   
   </div>
 </div>

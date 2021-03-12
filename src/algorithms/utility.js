@@ -30,7 +30,7 @@ export class Queue {
       this.heap = [];
     }
     isEmpty() {
-      return this.heap.length == 0;
+      return this.heap.length === 0;
     }
     clear() {
       this.heap = [];
@@ -55,7 +55,7 @@ export class Queue {
       return;
     }
     parent(index) {
-      if (index == 0) {
+      if (index === 0) {
         return null;
       }
       return Math.floor((index - 1) / 2);

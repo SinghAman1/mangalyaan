@@ -6,6 +6,7 @@ import {Greedy_BFS,getNodesInShortestPathOrderOfGreedyBfs} from '../algorithms/g
 
 import Navbar from './navbar';
 import Node from '../node/node'; 
+import instructions from './instructions';
 //import {aStar,getNodesInShortestPathOrderOfaStar} from '../algorithms/astar'
 
 import "./visualizer.css";
@@ -16,6 +17,7 @@ let START_NODE_COL = 2;
 let FINISH_NODE_ROW = 8;
 let FINISH_NODE_COL = 8; 
 let  isWPressed = false;
+
 
 
 export default class Visualizer extends Component {
@@ -178,9 +180,10 @@ export default class Visualizer extends Component {
       visitedNodesInOrder = Greedy_BFS(grid, startNode, finishNode);  
       nodesInShortestPathOrder = getNodesInShortestPathOrderOfGreedyBfs(finishNode);  
     } 
+    else return;
     // console.log( nodesInShortestPathOrder);   
     // console.log( visitedNodesInOrder);   
-     if( nodesInShortestPathOrder.length==1)  
+     if( nodesInShortestPathOrder.length===1)  
      document.getElementById('input-message').innerHTML= `Path not  Found `;
      else
     document.getElementById('input-message').innerHTML= `Path Found , Shortest Path length - ${nodesInShortestPathOrder.length-1 }`;
@@ -227,7 +230,7 @@ export default class Visualizer extends Component {
       
       }
       gridNew.push(currentRow);
-    } 
+    }  //document.getElementById('input-message').className= `highlight`;
     document.getElementById('input-message').innerHTML= `successfully path cleared`;
       this.setState({ grid: gridNew});
     //  console.log( grid);
@@ -249,13 +252,16 @@ export default class Visualizer extends Component {
       });
         const {grid,mouseIsPressed}= this.state;
         
-        return (     
+        return (  
+        //  
           <div> 
+             
              < Navbar 
               clearPath= {this.clearPath} 
               resetGrid = { this.resetGrid} 
               visualizeAlgorithm = { this.visualizeAlgorithm}
                />
+               <instructions/>  
             < div className = 'message-show my-3' id='input-message'> 
               Please First Select Algorithm
             </div>
@@ -330,9 +336,7 @@ const createNode = ( col,row,wall=false) => {
     h: Infinity,
     parent :null,
     previousNode: null,
-    f: Infinity, 
-    g: Infinity,
-    h: Infinity,
+    
   };
 }; 
 

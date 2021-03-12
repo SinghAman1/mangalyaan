@@ -6,10 +6,10 @@
 }
 
 .node-weighted {
-  background-color: pink;
+  background-color: grey;
 }
 .node-wall {
-  background-color: rgb(30, 24, 39);
+  background-color: rgb(247, 127, 147);
 }
 
 .node-visited {

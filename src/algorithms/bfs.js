@@ -12,7 +12,7 @@ export function BFS(grid, startNode, finishNode) {
   myQueue.enqueue(startNode);
 
   visitedNodesInOrder.push(startNode);
-  let currNode = new Node;
+  let currNode = new Node();
   
   // dequeue till queue becomes empty or finds end node
   while (!myQueue.empty()) { 
