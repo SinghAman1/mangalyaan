@@ -207,7 +207,7 @@ export default class Visualizer extends Component {
       document.getElementById('input-message').innerHTML= `Path Found successfully`;  
     }
       
-    this.animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+    this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
   
   
