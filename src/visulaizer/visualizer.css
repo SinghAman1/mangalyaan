@@ -9,4 +9,15 @@
   color: rgb(39, 97, 223);
   font-size: 20px;
   font-weight: 700;
+} 
+.distance-count{
+  color: rgb(31, 209, 233);
+  font-size: 20px;
+  font-weight: 700;
 }
+.time-count {
+  color: rgb(31, 209, 233);
+  font-size: 20px;
+  font-weight: 700;
+}
+

@@ -1,22 +1,24 @@
  import React, { Component } from 'react';
-import { dijkstra } from './algorithms/dijkstra';
+import { dijkstra } from './algorithms/dijkstra'; 
+
  class Navbar extends Component {
    state = {  
      currentAlgorithm : null,  
      message : 'select Algorithm'
      } 
-
+    
 
      selectAlgorithm= ( name )=>{ 
        this.setState({ message : 'Apply'+ ' ' +name });  
        this.setState({  currentAlgorithm :name });   
         // console.log( this.props); v 
         document.getElementById('input-message').innerHTML= ` Apply ${ name} Algorithm`;
+        // document.getElementById('algo-name').innerHTML= `  ${ name} Algorithm`;
       
        
      }
    render() {  
-     
+      
      return (  
       <div>
       <nav className="navbar navbar-expand-lg navbar-light navColor">

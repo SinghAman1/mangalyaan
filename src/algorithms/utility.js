@@ -1,5 +1,5 @@
 import '../navbar';
-//import {Visualizer} from'../visulaizer/visualizer'
+import {no_of_column , no_of_row} from'../visulaizer/visualizer'
 
 export class Queue {
     constructor() {
@@ -43,7 +43,7 @@ export class Queue {
     for (let d = 0; d < length; d++) {
       let rr = i + dx[d];
       let cc = j + dy[d];
-      if (rr >= 0 && rr < 20 && cc >= 0 && cc < 20) {
+      if (rr >= 0 && rr < no_of_row && cc >= 0 && cc < no_of_column) {
         if (grid[rr][cc].isVisited || grid[rr][cc].isWall === "true") {
           continue;
         } // if d < 4, push elements else if d >= 4, check for diagonal walls
