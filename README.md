@@ -12,7 +12,7 @@ Follow these steps to get a copy of the project up and run on your local machine
 https://mangalyaan-1.herokuapp.com/
 
 # Languages used:
-HTML5,CSS,JAVASCRIPT
+HTML5, CSS, JAVASCRIPT
 
 # Framework
 React
