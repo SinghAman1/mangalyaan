@@ -25,6 +25,6 @@ Were, h(n)= estimated cost from node n to the goal.
 A* search is the most commonly known form of best-first search.It is a weigted algorithm that uses heuristic function h(n), and cost to reach the node n from the start state g(n). It has combined features of UCS and greedy best-first search, by which it solve the problem efficiently. A* search algorithm finds the shortest path through the search space using the heuristic function. This search algorithm expands less search tree and provides optimal result faster. A* algorithm uses g(n)+h(n).
 
 # Additional features
-1.User can add weights in case of weighed algorithm , algorithm considers these weights and finds  shortest path that cost the minimum.
+1.User can add weights in case of weighed algorithm , algorithm considers these weights and finds  shortest path that cost the minimum.  
 2.Alert on the screen if path doesn't exist.
 
