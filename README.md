@@ -18,11 +18,13 @@ Informed search algorithms use domain knowledge. In an informed search, problem 
 A heuristic is a way which might not always be guaranteed for best solutions but guaranteed to find a good solution in reasonable time.
 
 ###1.Greedy Best-First Search Algorithm
-Greedy best-first search algorithm always selects the path which appears best at that moment. It is the combination of depth-first search and breadth-first search algorithms. It uses the heuristic function and search. Best-first search allows us to take the advantages of both algorithms. With the help of best-first search, at each step, we can choose the most promising node. In the best first search algorithm, we expand the node which is closest to the goal node and the closest cost is estimated by heuristic function, i.e. f(n)= h(n).
+Greedy best-first search algorithm a weighted algorithm that always selects the path which appears best at that moment. It is the combination of depth-first search and breadth-first search algorithms. It uses the heuristic function and search. Best-first search allows us to take the advantages of both algorithms. With the help of best-first search, at each step, we can choose the most promising node. In the best first search algorithm, we expand the node which is closest to the goal node and the closest cost is estimated by heuristic function, i.e. f(n)= h(n).
 Were, h(n)= estimated cost from node n to the goal.
 
 ###2. A* Algorithm
-A* search is the most commonly known form of best-first search. It uses heuristic function h(n), and cost to reach the node n from the start state g(n). It has combined features of UCS and greedy best-first search, by which it solve the problem efficiently. A* search algorithm finds the shortest path through the search space using the heuristic function. This search algorithm expands less search tree and provides optimal result faster. A* algorithm uses g(n)+h(n).
+A* search is the most commonly known form of best-first search.It is a weigted algorithm that uses heuristic function h(n), and cost to reach the node n from the start state g(n). It has combined features of UCS and greedy best-first search, by which it solve the problem efficiently. A* search algorithm finds the shortest path through the search space using the heuristic function. This search algorithm expands less search tree and provides optimal result faster. A* algorithm uses g(n)+h(n).
 
 #Additional features
-1.User can add weights .
+1.User can add weights in case of weighed algorithm , algorithm considers these weights and finds  shortest path that cost the minimum.
+2.Alert on the screen if path doesn't exist.
+
