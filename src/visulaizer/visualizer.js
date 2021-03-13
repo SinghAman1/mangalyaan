@@ -7,7 +7,7 @@ import {Greedy_BFS,getNodesInShortestPathOrderOfGreedyBfs} from '../algorithms/g
 import Navbar from './navbar';
 import Node from '../node/node'; 
 import Instructions from './instructions';
-//import {aStar,getNodesInShortestPathOrderOfaStar} from '../algorithms/astar'
+
 import { start } from '../timer';
 
 import "./visualizer.css";

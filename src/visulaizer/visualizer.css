@@ -46,9 +46,10 @@
   position: absolute;
   z-index: 100;
   width: 30%;
+
   background: transparent;
   left: 2%;
-  top: 10%;
+  top: 60px;
   border-radius: 5px;
   max-width: 300px;
 }
