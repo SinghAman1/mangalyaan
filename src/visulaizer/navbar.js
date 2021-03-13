@@ -27,7 +27,7 @@
   <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
-  <div className="collapse navbar-collapse" id="navbarSupportedContent">
+  <div className="collapse navbar-collapse mx-3" id="navbarSupportedContent">
     <ul className="navbar-nav me-auto mb-2 mb-lg-0 mx-3">
       <li className="nav-item dropdown ms-0">
         <a className="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,9 +41,9 @@
         </ul>
       
       </li>
-      <li className="nav-item mx-3">
+      <li className="nav-item mx-4">
          <div className="form-check form-switch mt-2">
-           <input className="form-check-input" type="checkbox" value="" id="diagonal-flag"></input>
+           <input className="form-check-input " type="checkbox" value="" id="diagonal-flag"></input>
             <label className="form-check-label" htmlFor="flexCheckDefault">
              Allow Diagonal
             </label>

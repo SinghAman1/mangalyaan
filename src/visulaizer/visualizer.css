@@ -21,6 +21,18 @@
   font-weight: 700;
 }
 
+.hide-card {
+  display: none;
+}
+.design-node {
+  width: 25px;
+  height: 25px;
+  outline: 1px solid rgb(41, 120, 224);
+  padding-top: 5px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
 .card {
   background: whitesmoke;
   opacity: 0.9;

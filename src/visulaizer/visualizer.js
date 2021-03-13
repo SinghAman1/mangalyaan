@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; 
 import { dijkstra, getNodesInShortestPathOrderOfDijkstra } from '../algorithms/dijkstra';
 import {BFS,getNodesInShortestPathOrderOfBFS} from '../algorithms/bfs';
-import {AStar,getNodesInShortestPathOrderOfAStar} from '../algorithms/Astar'; 
+import {AStar,getNodesInShortestPathOrderOfAStar} from '../algorithms/astar'; 
 import {Greedy_BFS,getNodesInShortestPathOrderOfGreedyBfs} from '../algorithms/greedy_bfs'; 
 
 import Navbar from './navbar';
