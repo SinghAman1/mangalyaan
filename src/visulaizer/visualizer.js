@@ -285,9 +285,9 @@ export default class Visualizer extends Component {
               resetGrid = { this.resetGrid} 
               visualizeAlgorithm = { this.visualizeAlgorithm}
                />
-               <Instructions/>
+               {/* <Instructions/> */}
             < div className = ' my-3' > 
-            < span className = 'distance-count px-5' id='distacne-count'> 
+            < span className = 'distance-count px-0' id='distacne-count'> 
                 distance count - 0
               </ span> 
               < span className = 'message-show px-5' id='input-message'> 

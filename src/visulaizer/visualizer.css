@@ -57,11 +57,11 @@
 .info-bar {
   position: absolute;
   z-index: 100;
-  width: 30%;
+  width: 25%;
 
   background: transparent;
-  left: 2%;
-  top: 60px;
+  left: 80%;
+  top: 9.5%;
   border-radius: 5px;
   max-width: 300px;
 }
