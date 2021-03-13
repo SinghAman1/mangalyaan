@@ -8,15 +8,24 @@ import Navbar from './navbar';
 import Node from '../node/node'; 
 import Instructions from './instructions';
 //import {aStar,getNodesInShortestPathOrderOfaStar} from '../algorithms/astar'
+import { start } from '../timer';
 
 import "./visualizer.css";
 
 
-let START_NODE_ROW = 2;
-let START_NODE_COL = 2;
-let FINISH_NODE_ROW = 8;
-let FINISH_NODE_COL = 8; 
-let  isWPressed = false;
+
+let START_NODE_ROW = 5;
+let START_NODE_COL = 5;
+let FINISH_NODE_ROW = 30;
+let FINISH_NODE_COL = 15; 
+let  isWPressed = false;  
+const height = window.innerHeight * 0.8;
+const width = window.innerWidth * 0.9; 
+ export const no_of_row= Math.floor(width / 25) - 1;
+ export const no_of_column=Math.floor(height / 25) - 1;
+//  console.log( no_of_row);
+//  console.log( width);
+   
 
 
 
@@ -69,8 +78,6 @@ export default class Visualizer extends Component {
     if(!isWPressed) { const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
     this.setState({grid: newGrid, mouseIsPressed: true}); }
   } 
-
-
   handleMouseEnter=(row, col) =>{ 
     if (!this.state.mouseIsPressed) return; 
 
@@ -126,9 +133,13 @@ export default class Visualizer extends Component {
   }    
  
   animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder) {
+     start();
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-      if (i === visitedNodesInOrder.length) {
-        setTimeout(() => {
+      if (i === visitedNodesInOrder.length) { 
+        
+        setTimeout(() => {  
+          document.getElementById('distacne-count').innerHTML= `distance count -  ${nodesInShortestPathOrder.length-1 }`; 
+          start();
           this.animateShortestPath(nodesInShortestPathOrder);
         }, 10 * i);
         return;
@@ -144,15 +155,17 @@ export default class Visualizer extends Component {
   }
 
   animateShortestPath(nodesInShortestPathOrder) {
-    // console.log(this.state.grid);
+    // console.log(this.state.grid); 
+   
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
         document.getElementById(`node-${node.row}-${node.col}`).className =
           `node  ${ node.row===START_NODE_ROW && node.col===START_NODE_COL ?'node-start': 
            node.row===FINISH_NODE_ROW && node.col===FINISH_NODE_COL? 'node-finish':'node-shortest-path'}`;
-      }, 50 * i);
-    }
+      }, 50 * i); 
+    } 
+   
   }
  
   visualizeAlgorithm =( name)=> {
@@ -161,8 +174,10 @@ export default class Visualizer extends Component {
     const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];  
     let visitedNodesInOrder; let nodesInShortestPathOrder;
     // console.log( name);
-    if( name ==='dijkstra'){
+    if( name ==='dijkstra'){ 
+      
      visitedNodesInOrder = dijkstra(grid, startNode, finishNode); 
+      
      nodesInShortestPathOrder = getNodesInShortestPathOrderOfDijkstra( finishNode); 
     }  
     else if( name ==='BFS') 
@@ -179,14 +194,20 @@ export default class Visualizer extends Component {
     {
       visitedNodesInOrder = Greedy_BFS(grid, startNode, finishNode);  
       nodesInShortestPathOrder = getNodesInShortestPathOrderOfGreedyBfs(finishNode);  
-    } 
-    else return;
+    }  
+    else { 
+       return;
+    }
     // console.log( nodesInShortestPathOrder);   
     // console.log( visitedNodesInOrder);   
-     if( nodesInShortestPathOrder.length===1)  
-     document.getElementById('input-message').innerHTML= `Path not  Found `;
-     else
-    document.getElementById('input-message').innerHTML= `Path Found , Shortest Path length - ${nodesInShortestPathOrder.length-1 }`;
+     if( nodesInShortestPathOrder.length==1)  
+    {  
+      document.getElementById('input-message').innerHTML= `Path not  Found `;
+    } 
+      else
+    { 
+      document.getElementById('input-message').innerHTML= `Path Found successfully`;  
+    }
       
     this.animateAlgorithm(visitedNodesInOrder, nodesInShortestPathOrder);
   } 
@@ -197,9 +218,9 @@ export default class Visualizer extends Component {
   resetGrid =( )=> {
     //  const { grid} = this.state; 
      const grid = [];
-     for (let row = 0; row < 20; row++) {
+     for (let row = 0; row < no_of_row; row++) {
        const currentRow = [];
-       for (let col = 0; col < 20; col++) {
+       for (let col = 0; col < no_of_column; col++) {
           currentRow.push(createNode(col, row)); 
           //`node-${row}-${col}`
       document.getElementById(`node-${row}-${col}`).className =
@@ -210,7 +231,8 @@ export default class Visualizer extends Component {
        grid.push(currentRow);
      } 
      document.getElementById('input-message').innerHTML= `successfully Grid cleared`;
-      
+     document.getElementById('distacne-count').innerHTML= `distance count - 0`;  
+     document.getElementById('time-count').innerHTML= ` time- 00 min 00 sec 00 ms`;  
        this.setState({ grid});
     // console.log(grid); 
   } 
@@ -218,9 +240,9 @@ export default class Visualizer extends Component {
    clearPath=()=> {
      const { grid}= this.state;  
      const gridNew = []; 
-     for (let row = 0; row < 20; row++) {
+     for (let row = 0; row < no_of_row; row++) {
       const currentRow = [];
-      for (let col = 0; col < 20; col++) {
+      for (let col = 0; col < no_of_column; col++) {
          currentRow.push(createNode(col, row,grid[row][col].isWall));  
         if(grid[row][col].isWall) { 
           document.getElementById(`node-${row}-${col}`).className='node node-wall'; }
@@ -232,6 +254,8 @@ export default class Visualizer extends Component {
       gridNew.push(currentRow);
     }  //document.getElementById('input-message').className= `highlight`;
     document.getElementById('input-message').innerHTML= `successfully path cleared`;
+    document.getElementById('distacne-count').innerHTML= `distance count - 0`; 
+    document.getElementById('time-count').innerHTML= ` time- 00 min 00 sec 00 ms`;   
       this.setState({ grid: gridNew});
     //  console.log( grid);
    }
@@ -261,10 +285,19 @@ export default class Visualizer extends Component {
               resetGrid = { this.resetGrid} 
               visualizeAlgorithm = { this.visualizeAlgorithm}
                />
-               <Instructions/>  
-            < div className = 'message-show my-3' id='input-message'> 
-              Please First Select Algorithm
-            </div>
+               <Instructions/>
+            < div className = ' my-3' > 
+            < span className = 'distance-count px-5' id='distacne-count'> 
+                distance count - 0
+              </ span> 
+              < span className = 'message-show px-5' id='input-message'> 
+              Select an ALgorithm first
+              </ span> 
+              < span className = 'time-count px-5' id='time-count'> 
+               time- 00 min 00 sec 00 ms
+              </ span>
+            </div> 
+            
           
             <div className="grid">
             {grid.map((row, rowIdx) => {
@@ -308,11 +341,12 @@ export default class Visualizer extends Component {
  // row= 60, col= 20  
 
  
-const getInitialGrid = () => {
+const getInitialGrid = () => { 
+  
     const grid = [];
-    for (let row = 0; row < 20; row++) {
+    for (let row = 0; row < no_of_row; row++) {
       const currentRow = [];
-      for (let col = 0; col < 20; col++) {
+      for (let col = 0; col < no_of_column; col++) {
         currentRow.push(createNode(col,row));
       }
       grid.push(currentRow);

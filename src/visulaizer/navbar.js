@@ -5,18 +5,19 @@
      currentAlgorithm : null,  
      message : 'select Algorithm'
      } 
-
+    
 
      selectAlgorithm= ( name )=>{ 
        this.setState({ message : 'Apply'+ ' ' +name });  
        this.setState({  currentAlgorithm :name });   
         // console.log( this.props); v 
         document.getElementById('input-message').innerHTML= ` Apply ${ name} Algorithm`;
+        // document.getElementById('algo-name').innerHTML= `  ${ name} Algorithm`;
       
        
      }
    render() {  
-     
+      
      return (  
       <div>
         

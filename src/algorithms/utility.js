@@ -1,6 +1,6 @@
 import '../visulaizer/navbar';
-//import {Visualizer} from'../visulaizer/visualizer'
-//Queue
+import {no_of_column , no_of_row} from'../visulaizer/visualizer'
+
 export class Queue {
     constructor() {
       this.items = new Array();
@@ -24,7 +24,67 @@ export class Queue {
       return;
     }
   }
-  //minheap
+  
+  export function getNeighbours(i, j,grid) {
+    let neighbours = [];
+    // direction vectors
+    // 0-3: East, South, West, North
+    // 4-7: South-East, North-East, South-West, North-West
+    const dx = [1, 0, -1, 0, 1, 1, -1, -1];
+    const dy = [0, 1, 0, -1, 1, -1, 1, -1];
+    const diagonal = document.getElementById("diagonal-flag").checked;
+     
+    let length; // length of direction vector
+    if (diagonal === false) { 
+        
+      length = 4;
+    } else length = 8;
+  
+    for (let d = 0; d < length; d++) {
+      let rr = i + dx[d];
+      let cc = j + dy[d];
+      if (rr >= 0 && rr < no_of_row && cc >= 0 && cc < no_of_column) {
+        if (grid[rr][cc].isVisited || grid[rr][cc].isWall === "true") {
+          continue;
+        } // if d < 4, push elements else if d >= 4, check for diagonal walls
+        else if (d < 4) {
+          neighbours.push([rr, cc]);
+        }  
+        else if (
+          d === 4 &&
+          grid[i][j + 1].isWall !== "true" &&
+          grid[i + 1][j].isWall !== "true"
+        ) {
+          neighbours.push([rr, cc]);
+        }  
+        else if (
+          d === 5 &&
+          grid[i][j - 1].isWall !== "true" &&
+          grid[i + 1][j].isWall !== "true"
+        ) {
+          neighbours.push([rr, cc]);
+        }
+         else if (
+          d === 6 &&
+          grid[i - 1][j].isWall !== "true" &&
+          grid[i][j + 1].isWall !== "true"
+        ) {
+          neighbours.push([rr, cc])
+        } 
+        else if (
+          d === 7 &&
+          grid[i - 1][j].isWall !== "true" &&
+          grid[i][j - 1].isWall !== "true"
+        ) {
+          neighbours.push([rr, cc]);
+        }
+      }
+    }
+    return neighbours;
+  } 
+
+
+  
   export class minHeap {
     constructor() {
       this.heap = [];
@@ -96,64 +156,64 @@ export class Queue {
     }
   }
   
-  export function getNeighbours(i, j,grid) {
-    let neighbours = [];
-    // direction vectors
-    // 0-3: East, South, West, North
-    // 4-7: South-East, North-East, South-West, North-West
-    const dx = [1, 0, -1, 0, 1, 1, -1, -1];
-    const dy = [0, 1, 0, -1, 1, -1, 1, -1];
-    const diagonal = document.getElementById("diagonal-flag").checked;
+  // export function getNeighbours(i, j,grid) {
+  //   let neighbours = [];
+  //   // direction vectors
+  //   // 0-3: East, South, West, North
+  //   // 4-7: South-East, North-East, South-West, North-West
+  //   const dx = [1, 0, -1, 0, 1, 1, -1, -1];
+  //   const dy = [0, 1, 0, -1, 1, -1, 1, -1];
+  //   const diagonal = document.getElementById("diagonal-flag").checked;
      
-    let length; // length of direction vector
-    if (diagonal === false) { 
+  //   let length; // length of direction vector
+  //   if (diagonal === false) { 
         
-      length = 4;
-    } else length = 8;
+  //     length = 4;
+  //   } else length = 8;
   
-    for (let d = 0; d < length; d++) {
-      let rr = i + dx[d];
-      let cc = j + dy[d];
-      if (rr >= 0 && rr < 20 && cc >= 0 && cc < 20) {
-        //console.log(grid[rr][cc]);
-        if (grid[rr][cc].isVisited || grid[rr][cc].isWall === "true") {
-          continue;
-        } // if d < 4, push elements else if d >= 4, check for diagonal walls
-        else if (d < 4) {
-          neighbours.push([rr, cc]);
-        }  
-        else if (
-          d === 4 &&
-          grid[i][j + 1].isWall !== "true" &&
-          grid[i + 1][j].isWall !== "true"
-        ) {
-          neighbours.push([rr, cc]);
-        }  
-        else if (
-          d === 5 &&
-          grid[i][j - 1].isWall !== "true" &&
-          grid[i + 1][j].isWall !== "true"
-        ) {
-          neighbours.push([rr, cc]);
-        }
-         else if (
-          d === 6 &&
-          grid[i - 1][j].isWall !== "true" &&
-          grid[i][j + 1].isWall !== "true"
-        ) {
-          neighbours.push([rr, cc])
-        } 
-        else if (
-          d === 7 &&
-          grid[i - 1][j].isWall !== "true" &&
-          grid[i][j - 1].isWall !== "true"
-        ) {
-          neighbours.push([rr, cc]);
-        }
-      }
-    }
-    return neighbours;
-  } 
+  //   for (let d = 0; d < length; d++) {
+  //     let rr = i + dx[d];
+  //     let cc = j + dy[d];
+  //     if (rr >= 0 && rr < 20 && cc >= 0 && cc < 20) {
+  //       //console.log(grid[rr][cc]);
+  //       if (grid[rr][cc].isVisited || grid[rr][cc].isWall === "true") {
+  //         continue;
+  //       } // if d < 4, push elements else if d >= 4, check for diagonal walls
+  //       else if (d < 4) {
+  //         neighbours.push([rr, cc]);
+  //       }  
+  //       else if (
+  //         d === 4 &&
+  //         grid[i][j + 1].isWall !== "true" &&
+  //         grid[i + 1][j].isWall !== "true"
+  //       ) {
+  //         neighbours.push([rr, cc]);
+  //       }  
+  //       else if (
+  //         d === 5 &&
+  //         grid[i][j - 1].isWall !== "true" &&
+  //         grid[i + 1][j].isWall !== "true"
+  //       ) {
+  //         neighbours.push([rr, cc]);
+  //       }
+  //        else if (
+  //         d === 6 &&
+  //         grid[i - 1][j].isWall !== "true" &&
+  //         grid[i][j + 1].isWall !== "true"
+  //       ) {
+  //         neighbours.push([rr, cc])
+  //       } 
+  //       else if (
+  //         d === 7 &&
+  //         grid[i - 1][j].isWall !== "true" &&
+  //         grid[i][j - 1].isWall !== "true"
+  //       ) {
+  //         neighbours.push([rr, cc]);
+  //       }
+  //     }
+  //   }
+  //   return neighbours;
+  // } 
 
 
   
